@@ -40,13 +40,13 @@ inquirer.prompt([
         {
             type: 'input',
             name: 'Cloze',
-            message: 'Please enter the Cloze Deleted Portion of the card'
+            message: 'Please enter the Cloze Statement for this Card'
         },
         //accept full text
         {
             type: 'input',
             name: 'ClozeText',
-            message: 'Please enter the full Answer for the card'
+            message: 'Please enter the full Answer for this Card'
         }
         ]).then(function(input){
             //store cloze and full text and pass through as the parameters on ClozeCard(cloze, text);
