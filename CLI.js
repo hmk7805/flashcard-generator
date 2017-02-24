@@ -1,52 +1,65 @@
-var Flash = require('./flashcard.js');
-var Clozecard = require('./clozecard.js');
+var BasicCard = require('./flashcard.js');
+var ClozeCard = require('./clozecard.js');
 var inquirer = require('inquirer');
 //immdiately console Do you want to make a card? 
 inquirer.prompt([
     {
         type: 'list',
         name: 'Start',
-        message: 'Create a Card?',
-        choices: ['Yes', 'No']
+        message: "What Type of Card?",
+        choices: ['Basic', 'Cloze Card']
     }
 ]).then(function(input){
-    var commandArg = input.start
-    if (commandArg === 'Yes') {
+    var commandArg = input.Start
+    if (commandArg === 'Basic') { 
+        //inquirer
         inquirer.prompt([
-            {
-                type: 'list',
-                name:'cardType',
-                message: 'What type of flashcards do you want to create?',
-                choices: ['Regular', 'ClozeCards']
-            },
-        ]).then(function(input2){
-            if (input2.cardType === 'Regular'){
-                //callback to the constructor for flashcard.js
-                {
-                type: 'list',
-                name:'cardType',
-                message: 'What type of flashcards do you want to play?',
-                choices: ['Regular', 'ClozeCards']
-            }
-            }
-            else {
-                //callback to the constructor for clozecard.js
-                var newCloze = new Clozecard ();
-            }
+        //accept front 
+        {
+            type: 'input',
+            name: 'BasicFront',
+            message: 'Please enter the front of the card'
+        },
+        //accept back
+        {
+            type: 'input',
+            name: 'BasicBack',
+            message: 'Please enter the back of the card'
+        }
+        ]).then(function(input){
+            //store front and back and pass through as the parameters on BasicCard(front, back);
+            var front = input.BasicFront;
+            var back = input.BasicBack;
+            //callback to the constructor for flashcard.js
+            new BasicCard(front, back).saveCard();
+            //store card as an object in a file 
         });
-    }
-})
+    } else if (commandArg === 'Cloze Card'){
+        inquirer.prompt([
+        //accept cloze deletion 
+        {
+            type: 'input',
+            name: 'Cloze',
+            message: 'Please enter the Cloze Deleted Portion of the card'
+        },
+        //accept full text
+        {
+            type: 'input',
+            name: 'ClozeText',
+            message: 'Please enter the full Answer for the card'
+        }
+        ]).then(function(input){
+            //store cloze and full text and pass through as the parameters on ClozeCard(cloze, text);
+            var cloze = input.Cloze;
+            var text = input.ClozeText;
+            //callback to the constructor for clozecard.js
+            new ClozeCard(text, cloze).showPartial().saveCard();
+            //store card as an object in a file 
+        });      
+    };  
+});
 
-//if answer yes
-    //loop question array
-        //ask first question
-            //if input equals answer console 'Correct, the answer was: ${answer}
-                //increase score variable
-            //else console 'Incorrect, the answer was: ${answer};
-        //ask next question...
-    //Console.log(Score)
-//else 
-    //console.log K Bye.
+
 
 
 
