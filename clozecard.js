@@ -6,6 +6,8 @@ var ClozeFlashcard = function(text, cloze) {
     //close is deleted portion
     this.cloze = cloze;
 };
+// Need to add a function to check if the cloze is found in the text and if it isn't the throw an error
+
 //  * `ClozeFlashcard` should have a method that returns *only* the cloze-deleted portion of the text.
 ClozeFlashcard.prototype.showPartial = function() {
     var full = this.text;
