@@ -53,7 +53,7 @@ inquirer.prompt([
             var cloze = input.Cloze;
             var text = input.ClozeText;
             //callback to the constructor for clozecard.js
-            new ClozeCard(text, cloze).showPartial().saveCard();
+            new ClozeCard(text, cloze).clozeCheck();
             //store card as an object in a file 
         });      
     };  
